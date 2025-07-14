@@ -4,21 +4,29 @@ const PersonSchema=new mongoose.Schema({
         type:String,
         require:true
     },
-    name: {
-        type: String,
-        require: true
-    },
-    name: {
-        type: String,
-        require: true
-    },
-    name: {
-        type: String,
+    age: {
+        type: Number,
         require: true
     },
 
-    name: {
+    email: {
+        type: String,
+        require: true,
+        // unique:true
+    },
+    work: {
+        type: String,
+        enum:['chef','waiter','manager'],
+        require: true
+    },
+
+    address: {
         type: String,
         require: true
     },
+    sallary: {
+        type: Number,
+        require: true
+    },
 })
+export default mongoose.model('person',PersonSchema)
