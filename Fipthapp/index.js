@@ -1,9 +1,10 @@
 import express from "express"
 import db from "./db.js"
-import person from "./models/person.js";
-import Menu from "./models/menu.js"
+// import person from "./models/person.js";
+// import Menu from "./models/menu.js"
 import bodyParser from "body-parser";
 import router from "./router/personRouter.js";
+import Menurouter from "./router/menuRouter.js";
 const app = express();
 app.use(bodyParser.json())
 // app.get("/", (req, res) => {
@@ -58,6 +59,7 @@ app.use(bodyParser.json())
 //     }
 // })
 app.use(router)
+app.use(Menurouter)
 app.listen(4000, () => {
     console.log("the run server 3000 port")
 })

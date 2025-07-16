@@ -42,6 +42,24 @@ const updatePerson=async(req,res)=>{
         res.status(500).json({ error: 'internal server error' })
     }
 }
+
+const workType= async(req,res)=>{
+    try{
+const workType=req.params.workType
+if(workType=='chef'||workType=='manager'||workType=='waiter'){
+    const response=await person.find({work:workType})
+    console.log('response fatch')
+    res.status(200).json(response)
+}
+else{
+    res.status(404).json({error:'invalid work Type'})
+}
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json({ error: 'internal server error' })
+    }
+}
 const deleteperson=async(req,res)=>{
     try{
 const personId=req.params.id
@@ -58,4 +76,4 @@ res.status(200).json(response)
     }
 }
 
-export {personData,fatchPersonData,updatePerson,deleteperson}
+export {personData,fatchPersonData,updatePerson,deleteperson,workType}
