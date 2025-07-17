@@ -2,21 +2,21 @@ import mongoose from "mongoose";
 const menuSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
+        required: true
     },
     price: {
         type: Number,
-        require: true
+        required: true
     },
     teste: {
         type: String,
         enum: ['sweet', 'spicy', 'sour'],
-        require: true
+        required: true
     },
     is_drinck: {
         type: Boolean,
         default: false,
-        require: true
+        required: true
     },
     ingredients: {
         type: String,
