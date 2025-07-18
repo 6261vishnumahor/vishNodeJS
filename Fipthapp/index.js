@@ -5,11 +5,22 @@ import db from "./db.js"
 import bodyParser from "body-parser";
 import router from "./router/personRouter.js";
 import Menurouter from "./router/menuRouter.js";
+import passport from "passport";
+import LocalStategy from "passport-local.Strategy"
+
 const app = express();
 app.use(bodyParser.json())
-// app.get("/", (req, res) => {
-//     res.send("this is home page")
-// })
+
+const logrequest=(req,res,next)=>{
+    console.log(`${new Date().toLocaleString()}Request made to :${req.originalUrl}`)
+    next()
+}
+
+app.get("/", (req, res) => {
+    res.send("this is home page")
+})
+app.use(passport.initialize())
+app.use(logrequest)
 // app.post("/person", async (req, res) => {
 //     try {
 //         const data = req.body

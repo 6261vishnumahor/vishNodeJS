@@ -28,5 +28,13 @@ const PersonSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    username:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    }
 })
 export default mongoose.model('person', PersonSchema)
