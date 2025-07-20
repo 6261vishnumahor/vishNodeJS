@@ -5,9 +5,9 @@ import db from "./db.js"
 import bodyParser from "body-parser";
 import router from "./router/personRouter.js";
 import Menurouter from "./router/menuRouter.js";
-import passport from "passport";
-import LocalStategy from "passport-local.Strategy"
-
+import passport from "./auth.js";
+// import LocalStrategy from "passport-local"
+// import person from "./models/person.js"
 const app = express();
 app.use(bodyParser.json())
 
@@ -16,11 +16,35 @@ const logrequest=(req,res,next)=>{
     next()
 }
 
-app.get("/", (req, res) => {
+
+app.use(passport.initialize())
+const localAuthMiddliware=passport.authenticate('local',{session:false})
+// passport.use(new LocalStrategy(async(username ,password,done)=>{
+//     try{
+// console.log('received credentials',username,password)
+// const user=await person.findOne({username:username})
+// if(!user)
+//     return done(null,false,{massage:'incorrect username'})
+// const passwordMAtch=(user.password==password?true:false)
+// if(passwordMAtch){
+//     return done(null,user)
+// }
+// else{
+//     return done(null,false,{massage:'incorrect password'})
+// }
+//     }
+//     catch(err){
+// return done(err)
+//     }
+// }))
+app.use(logrequest)
+
+
+
+
+app.get("/", localAuthMiddliware, (req, res) => {
     res.send("this is home page")
 })
-app.use(passport.initialize())
-app.use(logrequest)
 // app.post("/person", async (req, res) => {
 //     try {
 //         const data = req.body
@@ -70,7 +94,7 @@ app.use(logrequest)
 //     }
 // })
 app.use(router)
-app.use(Menurouter)
+app.use( localAuthMiddliware,Menurouter)
 app.listen(4000, () => {
     console.log("the run server 3000 port")
 })

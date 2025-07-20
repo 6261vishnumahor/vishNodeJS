@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import bcrypt from "bcrypt"
 const PersonSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -36,5 +37,9 @@ const PersonSchema = new mongoose.Schema({
         type:String,
         required:true
     }
+})
+PersonSchema.pre('save',async(next)=>{
+    const person=this;
+    if(! person.ismodified(''))
 })
 export default mongoose.model('person', PersonSchema)
